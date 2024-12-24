@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Życzenia Sylwestrowe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #000428, #004e92);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #ff8008;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #e67e22;
+        }
+        img, .gif {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .link-container {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #ff8008;
+        }
+        .link-container a {
+            color: #ff8008;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link-container a:hover {
+            text-decoration: underline;
+        }
+        .button-group {
+            margin-top: 10px;
+        }
+        .button-group button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <h1>Wesołych i Szczęśliwego Nowego Roku!</h1>
+        <p>Wpisz imię osoby, której chcesz złożyć życzenia:</p>
+        <input type="text" id="recipientName" placeholder="Wpisz imię...">
+        <button onclick="generateGreeting()">Wyślij Życzenia</button>
+    </div>
+
+    <script>
+        function generateGreeting() {
+            const name = document.getElementById('recipientName').value.trim();
+
+            if (name) {
+                const url = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(name)}`;
+                document.body.innerHTML = `
+                <div class="container">
+                    <h1>Drogi/a ${name},</h1>
+                    <p>Życzę Ci wspaniałego Sylwestra i spełnienia marzeń w Nowym Roku! 🎉🥂</p>
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExc29rcjBsY2p6aTNjcnYxcHVlbGFlMGExZ3Z0endzMTBjbTA4NmZsZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MBWoF655bXezigWbkw/giphy.gif" alt="Grupka ludzi cieszących się przy fajerwerkach" class="gif">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXkwbWR1YW52cnR3enc0MHhvbThya2hkYTJwZmVoMmJiY3pqZ3lsMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0n8j4zs6xhA6HuxDmQ/giphy.gif" alt="2025 napis" class="gif">
+                    <div class="link-container">
+                        <p>Skopiuj poniższy link, aby wysłać życzenia:</p>
+                        <a href="${url}" target="_blank">${url}</a>
+                        <div class="button-group">
+                            <button onclick="copyToClipboard('${url}')">Kopiuj link</button>
+                            <button onclick="sendViaMessenger('${url}')">Wyślij przez Messenger</button>
+                            <button onclick="sendViaWhatsApp('${url}')">Wyślij przez WhatsApp</button>
+                        </div>
+                    </div>
+                </div>`;
+            } else {
+                alert('Proszę wpisać imię!');
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Link skopiowany do schowka!');
+            });
+        }
+
+        function sendViaMessenger(url) {
+            const messengerUrl = `https://www.messenger.com/t/?link=${encodeURIComponent(url)}`;
+            window.open(messengerUrl, '_blank');
+        }
+
+        function sendViaWhatsApp(url) {
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(url)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function displayGreetingFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get('name');
+
+            if (name) {
+                document.body.innerHTML = `
+                <div class="container">
+                    <h1>Drogi/a ${name},</h1>
+                    <p>Życzę Ci wspaniałego Sylwestra i spełnienia marzeń w Nowym Roku! 🎉🥂</p>
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExc29rcjBsY2p6aTNjcnYxcHVlbGFlMGExZ3Z0endzMTBjbTA4NmZsZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MBWoF655bXezigWbkw/giphy.gif" alt="Grupka ludzi cieszących się przy fajerwerkach" class="gif">
+                    <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXkwbWR1YW52cnR3enc0MHhvbThya2hkYTJwZmVoMmJiY3pqZ3lsMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0n8j4zs6xhA6HuxDmQ/giphy.gif" alt="2025 napis" class="gif">
+                </div>`;
+            }
+        }
+
+        displayGreetingFromURL();
+    </script>
+</body>
+</html>
